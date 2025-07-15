@@ -81,7 +81,7 @@ function restartSpawn() {
 }
 
 function updateBackground() {
-  const levelStr = String(level).padStart(3, '0'); // 001, 002...
+  const levelStr = String(level).padStart(3, '0');
   const imgPath = `fon${levelStr}.png`;
 
   const img = new Image();
@@ -89,8 +89,7 @@ function updateBackground() {
     document.body.style.backgroundImage = `url('${imgPath}')`;
   };
   img.onerror = () => {
-    document.body.style.backgroundImage =
-      `linear-gradient(to top, #0f2027, #203a43, #2c5364)`;
+    document.body.style.backgroundImage = `linear-gradient(to top, #0f2027, #203a43, #2c5364)`;
   };
   img.src = imgPath;
 }
@@ -166,6 +165,7 @@ function startGame() {
   document.getElementById('endScreen').style.display = 'none';
   document.getElementById('startScreen').style.display = 'none';
   document.getElementById('gameStats').style.display = 'flex';
+  document.body.style.backgroundImage = "url('fon001.png')";
   updateStats();
   updateBackground();
   restartSpawn();

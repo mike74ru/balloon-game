@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
+html, body {
+  height: 100%;
+}
+
 body,
 .ball,
 #startScreen,
@@ -11,6 +15,7 @@ body {
   margin: 0;
   overflow: hidden;
   font-family: 'Inter', sans-serif;
+  background-image: url('fon001.png');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -19,7 +24,6 @@ body {
   color: #f0f0f0;
 }
 
-/* Шарики */
 .ball {
   position: absolute;
   border-radius: 50%;
@@ -50,7 +54,6 @@ body {
   }
 }
 
-/* Верхняя панель статистики */
 #gameStats {
   position: absolute;
   top: 16px;
@@ -67,7 +70,6 @@ body {
   display: none;
 }
 
-/* Прогресс */
 #progressBar {
   position: absolute;
   top: -12px;
@@ -86,7 +88,6 @@ body {
   transition: width 0.3s ease;
 }
 
-/* Стартовый экран */
 #startScreen {
   position: fixed;
   top: 50%;
@@ -103,7 +104,6 @@ body {
   text-align: center;
 }
 
-/* Кнопка старта */
 #startScreen button {
   margin-top: 16px;
   background: #00bcd4;
@@ -120,7 +120,6 @@ body {
   background: #0097a7;
 }
 
-/* Экран окончания */
 #endScreen {
   position: fixed;
   top: 0;
@@ -192,7 +191,6 @@ tbody tr:nth-child(even) {
   margin-top: 20px;
 }
 
-/* Версия игры */
 #gameVersion {
   position: fixed;
   bottom: 10px;
