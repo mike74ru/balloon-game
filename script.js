@@ -1,27 +1,21 @@
 const API_URL = 'https://balloon-api-y74o.onrender.com';
 
-let hit = 0, missed = 0, level = 1, isPlaying = false;
+let hit = 0;
+let missed = 0;
+let level = 1;
+let isPlaying = false;
 let spawnInterval = 1200;
 let spawnTimer;
 
-function startGame() {
-  document.getElementById('startScreen').style.display = 'none';
-  document.getElementById('gameStats').style.display = 'flex';
-  isPlaying = true;
-  restartSpawn();
-  fetchOnlineScores();
-}
-
 function spawnBall() {
-  const ball = document.createElement('div');
-  const size = Math.random() * 50 + 30;
+  if (!isPlaying) return;
 
+  const ball = document.createElement('div');
+  const size = Math.random() * 40 + 30;
+  const angle = Math.random() * Math.PI * 2;
+  const radius = Math.min(300 + (level - 1) * 100, window.innerWidth / 2);
   const centerX = window.innerWidth / 2;
   const centerY = window.innerHeight / 2;
-  const maxRadius = 100 + level * 100;
-
-  const angle = Math.random() * 2 * Math.PI;
-  const radius = Math.random() * maxRadius;
   const x = centerX + Math.cos(angle) * radius - size / 2;
   const y = centerY + Math.sin(angle) * radius - size / 2;
 
@@ -30,17 +24,7 @@ function spawnBall() {
   ball.style.height = size + 'px';
   ball.style.left = `${x}px`;
   ball.style.top = `${y}px`;
-
-  // Скины по уровню
-  let color;
-  if (level >= 10) {
-    color = `hsl(${Math.random() * 20}, 100%, 60%)`; // огненные
-  } else if (level >= 5) {
-    color = `hsl(190, 80%, ${50 + Math.random() * 20}%)`; // ледяные
-  } else {
-    color = `hsl(${Math.random() * 360}, 80%, 60%)`; // радужные
-  }
-  ball.style.backgroundColor = color;
+  ball.style.backgroundColor = `hsl(${Math.random() * 360}, 80%, 60%)`;
 
   document.body.appendChild(ball);
 
@@ -71,6 +55,17 @@ function adjustDifficulty() {
   }
 }
 
+function checkGameState() {
+  if (missed >= 5) {
+    endGame();
+  } else if (hit >= level * 20) {
+    level++;
+    missed = 0;
+    updateBackground();
+    restartSpawn();
+  }
+}
+
 function updateStats() {
   document.getElementById('score').innerText = `Поймано: ${hit}`;
   document.getElementById('missed').innerText = `Пропущено: ${missed} / 5`;
@@ -80,45 +75,37 @@ function updateStats() {
   document.getElementById('progressFill').style.width = `${progress}%`;
 }
 
-function checkGameState() {
-  if (missed >= 5) {
-    endGame();
-  } else if (hit >= level * 20) {
-    level++;
-    missed = 0;
-    restartSpawn();
-  }
-}
-
 function restartSpawn() {
   clearInterval(spawnTimer);
   spawnTimer = setInterval(spawnBall, spawnInterval);
+}
+
+function updateBackground() {
+  const levelStr = String(level).padStart(3, '0'); // 001, 002, ...
+  const imgPath = `fon${levelStr}.png`;
+
+  const img = new Image();
+  img.onload = () => {
+    document.body.style.backgroundImage = `url('${imgPath}')`;
+  };
+  img.onerror = () => {
+    document.body.style.backgroundImage =
+      `linear-gradient(to top, #0f2027, #203a43, #2c5364)`;
+  };
+  img.src = imgPath;
 }
 
 function endGame() {
   isPlaying = false;
   clearInterval(spawnTimer);
   document.querySelectorAll('.ball').forEach(b => b.remove());
+  document.getElementById('gameStats').style.display = 'none';
 
   document.getElementById('result').innerText =
     `Игра окончена!\nУровень: ${level}, Поймано: ${hit}, Пропущено: ${missed}`;
   document.getElementById('endScreen').style.display = 'flex';
   document.getElementById('nameInput').style.display = 'flex';
   document.getElementById('playerName').value = '';
-  showAchievements();
-}
-
-function showAchievements() {
-  let messages = [];
-  if (level >= 1) messages.push('🏅 Новичок');
-  if (missed === 0 && hit > 0) messages.push('🎯 Меткий');
-  if (level >= 5) messages.push('💎 Ветеран');
-
-  if (messages.length) {
-    document.getElementById('achievements').innerHTML = `
-      <h3>🏆 Достижения:</h3>
-      <ul>${messages.map(m => `<li>${m}</li>`).join('')}</ul>`;
-  }
 }
 
 async function saveScore() {
@@ -166,5 +153,39 @@ function showOnlineScores(scores) {
     <table>
       <thead><tr><th>Игрок</th><th>Уровень</th><th>Поймано</th><th>Дата</th></tr></thead>
       <tbody>${rows}</tbody>
-    </table>`;
+    </table>
+    <button id="restartButton" onclick="startGame()">Начать заново</button>`;
 }
+
+function startGame() {
+  hit = 0;
+  missed = 0;
+  level = 1;
+  spawnInterval = 1200;
+  isPlaying = true;
+  document.getElementById('endScreen').style.display = 'none';
+  document.getElementById('gameStats').style.display = 'flex';
+  updateStats();
+  updateBackground();
+  restartSpawn();
+}
+
+// Приветственный экран
+document.addEventListener('DOMContentLoaded', () => {
+  const startBtn = document.createElement('button');
+  startBtn.innerText = 'Начать игру';
+  startBtn.onclick = () => {
+    document.getElementById('startScreen').style.display = 'none';
+    startGame();
+    fetchOnlineScores();
+  };
+  const screen = document.createElement('div');
+  screen.id = 'startScreen';
+  screen.innerHTML = `
+    <h1>🎯 Лопни шарики!</h1>
+    <p>Лопай как можно быстрее</p>
+    <p>Пропускать нельзя более 5 шаров!</p>
+  `;
+  screen.appendChild(startBtn);
+  document.body.appendChild(screen);
+});
