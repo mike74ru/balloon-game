@@ -2,14 +2,13 @@ body {
   margin: 0;
   overflow: hidden;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #c2e9fb, #a1c4fd);
+background: linear-gradient(to top, #0f2027, #203a43, #2c5364);
   cursor: crosshair;
 }
 
 .ball {
   position: absolute;
   border-radius: 50%;
-  cursor: pointer;
   opacity: 0.8;
   transform: scale(0);
   animation: grow 3s linear forwards;
