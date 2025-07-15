@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
-/* Курсор-прицел всегда */
 body,
 .ball,
 #startScreen,
@@ -18,6 +17,7 @@ body {
   color: #f0f0f0;
 }
 
+/* Шарики */
 .ball {
   position: absolute;
   border-radius: 50%;
@@ -25,7 +25,6 @@ body {
   transform: scale(0);
   animation: grow 3s linear forwards;
   transition: transform 0.2s, opacity 0.2s;
-  pointer-events: auto;
 }
 
 @keyframes grow {
@@ -49,6 +48,7 @@ body {
   }
 }
 
+/* Верхняя панель статистики */
 #gameStats {
   position: absolute;
   top: 16px;
@@ -65,6 +65,7 @@ body {
   display: none;
 }
 
+/* Прогресс */
 #progressBar {
   position: absolute;
   top: -12px;
@@ -83,7 +84,7 @@ body {
   transition: width 0.3s ease;
 }
 
-/* Компактный стартовый экран */
+/* Стартовый экран */
 #startScreen {
   position: fixed;
   top: 50%;
@@ -100,14 +101,7 @@ body {
   text-align: center;
 }
 
-#startScreen h1 {
-  margin-bottom: 10px;
-}
-
-#startScreen p {
-  margin: 4px 0;
-}
-
+/* Кнопка старта */
 #startScreen button {
   margin-top: 16px;
   background: #00bcd4;
@@ -124,6 +118,7 @@ body {
   background: #0097a7;
 }
 
+/* Экран окончания */
 #endScreen {
   position: fixed;
   top: 0;
@@ -193,4 +188,14 @@ tbody tr:nth-child(even) {
 #highScoresTable {
   max-width: 600px;
   margin-top: 20px;
+}
+
+/* Версия игры */
+#gameVersion {
+  position: fixed;
+  bottom: 10px;
+  right: 16px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.4);
+  z-index: 1001;
 }

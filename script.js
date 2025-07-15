@@ -13,7 +13,7 @@ function spawnBall() {
   const ball = document.createElement('div');
   const size = Math.random() * 40 + 30;
   const angle = Math.random() * Math.PI * 2;
-  const radius = Math.min(300 + (level - 1) * 100, window.innerWidth / 2);
+  const radius = Math.min(300 + (level - 1) * 100, window.innerWidth / 2.5);
   const centerX = window.innerWidth / 2;
   const centerY = window.innerHeight / 2;
   const x = centerX + Math.cos(angle) * radius - size / 2;
@@ -81,7 +81,7 @@ function restartSpawn() {
 }
 
 function updateBackground() {
-  const levelStr = String(level).padStart(3, '0'); // 001, 002, ...
+  const levelStr = String(level).padStart(3, '0'); // 001, 002...
   const imgPath = `fon${levelStr}.png`;
 
   const img = new Image();
@@ -164,28 +164,10 @@ function startGame() {
   spawnInterval = 1200;
   isPlaying = true;
   document.getElementById('endScreen').style.display = 'none';
+  document.getElementById('startScreen').style.display = 'none';
   document.getElementById('gameStats').style.display = 'flex';
   updateStats();
   updateBackground();
   restartSpawn();
+  fetchOnlineScores();
 }
-
-// Приветственный экран
-document.addEventListener('DOMContentLoaded', () => {
-  const startBtn = document.createElement('button');
-  startBtn.innerText = 'Начать игру';
-  startBtn.onclick = () => {
-    document.getElementById('startScreen').style.display = 'none';
-    startGame();
-    fetchOnlineScores();
-  };
-  const screen = document.createElement('div');
-  screen.id = 'startScreen';
-  screen.innerHTML = `
-    <h1>🎯 Лопни шарики!</h1>
-    <p>Лопай как можно быстрее</p>
-    <p>Пропускать нельзя более 5 шаров!</p>
-  `;
-  screen.appendChild(startBtn);
-  document.body.appendChild(screen);
-});
