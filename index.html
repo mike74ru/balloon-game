@@ -8,9 +8,14 @@
 <body>
 
 <div id="gameStats">
+  <div id="progressBar">
+  <div id="progressFill"></div>
+</div>
+
   <span id="score">Поймано: 0</span>
   <span id="missed">Пропущено: 0 / 5</span>
   <span id="level">Уровень: 1</span>
+  
 </div>
 
 <div id="endScreen">
@@ -22,6 +27,12 @@
   </div>
   <div id="highScoresTable"></div>
   <button onclick="location.reload()" id="restartButton">Начать заново</button>
+</div>
+<div id="startScreen">
+  <h1>Лопни шарики</h1>
+  <p>Цель: лопай шарики, пока не пропущено 5 штук.</p>
+  <p>С каждым уровнем сложность увеличивается!</p>
+  <button onclick="startGame()">Играть</button>
 </div>
 
 <script src="script.js"></script>
