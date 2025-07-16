@@ -165,7 +165,7 @@ function startGame() {
   document.getElementById('endScreen').style.display = 'none';
   document.getElementById('startScreen').style.display = 'none';
   document.getElementById('gameStats').style.display = 'flex';
-  document.body.style.backgroundImage = "url('fon001.png')";
+  document.body.style.backgroundImage = "url('fon000.png')";
   updateStats();
   updateBackground();
   restartSpawn();
