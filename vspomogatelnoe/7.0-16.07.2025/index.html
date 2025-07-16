@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Лопни шарики</title>
+  <meta property="og:title" content="Тренинг точности" />
+<meta property="og:description" content="это тебе не CS" />
+<meta property="og:image" content="crosshair.png" />
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="gameStats">
+  <span id="score">Поймано: 0</span>
+  <span id="missed">Пропущено: 0 / 5</span>
+  <span id="level">Уровень: 1</span>
+  <div id="progressBar"><div id="progressFill"></div></div>
+</div>
+
+<div id="startScreen" >
+  <h1>🎯 Лопни шарики!</h1>
+  <p>Лопай как можно быстрее</p>
+  <p>Пропускать нельзя более 5 шаров!</p>
+  <button onclick="startGame()">Начать игру</button>
+</div>
+
+<div id="endScreen">
+  <div id="result"></div>
+  <div id="nameInput">
+    <p>Введите имя:</p>
+    <input type="text" id="playerName" placeholder="Ваше имя">
+    <button onclick="saveScore()">Сохранить результат</button>
+  </div>
+  <div id="highScoresTable"></div>
+</div>
+
+<div id="gameVersion">mike74/game_grops_004.0</div>
+
+<script src="script.js"></script>
+</body>
+</html>
