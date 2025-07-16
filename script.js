@@ -1,4 +1,4 @@
-const API_URL = 'https://balloon-api-y74o.onrender.com';
+const API_URL = 'https://script.google.com/macros/s/AKfycbyPu_xd3l8KabLdo_1G58RKZe_Wor6sRTsHHuMPG_6ZejfGRgDnOL-sckjX9LyDt7wz0w/exec';
 
 let hit = 0;
 let missed = 0;
