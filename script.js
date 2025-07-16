@@ -1,4 +1,4 @@
-const API_URL = 'https://script.google.com/macros/s/AKfycbyPu_xd3l8KabLdo_1G58RKZe_Wor6sRTsHHuMPG_6ZejfGRgDnOL-sckjX9LyDt7wz0w/exec';
+const API_URL = ''https://corsproxy.io/?https://script.google.com/macros/s/AKfycbyPu_xd3l8KabLdo_1G58RKZe_Wor6sRTsHHuMPG_6ZejfGRgDnOL-sckjX9LyDt7wz0w/exec';
 
 let hit = 0;
 let missed = 0;
@@ -114,19 +114,23 @@ async function saveScore() {
   const score = { name, level, hit, timestamp: Date.now() };
 
   try {
-    const res = await fetch(`${API_URL}/scores`, {
+    const res = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(score)
     });
-    const scores = await res.json();
-    showOnlineScores(scores);
+
+    const responseText = await res.text(); // ← добавим для отладки
+    console.log("Ответ от Google Apps Script:", responseText);
+
+    fetchOnlineScores(); // можно вызвать сразу
   } catch (err) {
     console.error('Ошибка отправки результата:', err);
   }
 
   document.getElementById('nameInput').style.display = 'none';
 }
+
 
 async function fetchOnlineScores() {
   try {
