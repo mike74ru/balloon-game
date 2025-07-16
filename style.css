@@ -31,6 +31,9 @@ body {
   transform: scale(0);
   animation: grow 3s linear forwards;
   transition: transform 0.2s, opacity 0.2s;
+  border: 2px solid white; /* добавлено */
+  box-sizing: border-box;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); /* добавлено */
 }
 
 @keyframes grow {
