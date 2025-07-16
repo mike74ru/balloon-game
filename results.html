@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Рекорды игроков</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🌍 Онлайн таблица рекордов</h1>
+  <div id="highScoresTable">Загрузка...</div>
+
+  <script>
+    const API_URL = 'https://balloon-api-y74o.onrender.com';
+
+    async function fetchScores() {
+      try {
+        const res = await fetch(`${API_URL}/scores`);
+        const scores = await res.json();
+        const rows = scores.map(s => `
+          <tr>
+            <td>${s.name}</td>
+            <td>${s.level}</td>
+            <td>${s.hit}</td>
+            <td>${new Date(s.timestamp).toLocaleString()}</td>
+          </tr>`).join('');
+
+        document.getElementById('highScoresTable').innerHTML = `
+          <table>
+            <thead><tr><th>Игрок</th><th>Уровень</th><th>Поймано</th><th>Дата</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>`;
+      } catch (err) {
+        document.getElementById('highScoresTable').innerText = 'Ошибка загрузки данных';
+      }
+    }
+
+    fetchScores();
+  </script>
+</body>
+</html>
