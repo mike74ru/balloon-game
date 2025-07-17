@@ -1,6 +1,6 @@
 {
   "name": "balloon-game-server",
-  "version": "1.0.0",
+  "version": "7.4.0",
   "description": "Backend for the Balloon Game with online highscore saving",
   "main": "server.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "express",
     "scores"
   ],
-  "author": "твоё имя или ник",
+  "author": "Mike74",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
